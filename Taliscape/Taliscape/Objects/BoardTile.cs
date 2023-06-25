@@ -9,7 +9,7 @@ namespace Taliscape.Objects
 {
     internal class BoardTile
     {
-        public string TileType { get; private set; }
+        public string TileType;
         public readonly struct TilePosition
         {
             public int X { get; }

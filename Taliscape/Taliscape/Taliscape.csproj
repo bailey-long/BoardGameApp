@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsepriteSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsepriteSharp.0.0.1\lib\net40\AsepriteSharp.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -93,8 +90,14 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Sprites\16x16.ico" />
-    <Content Include="Sprites\BoardTiles\edgePiece_01.png" />
+    <Content Include="Sprites\BoardTiles\BanditCamp.png" />
+    <Content Include="Sprites\BoardTiles\EdgePiece_01.png" />
+    <Content Include="Sprites\BoardTiles\test.png" />
     <Content Include="Sprites\BoardTiles\Village1.png" />
+    <Content Include="Sprites\EntityIcons\Players\PlayerFour.png" />
+    <Content Include="Sprites\EntityIcons\Players\PlayerOne.png" />
+    <Content Include="Sprites\EntityIcons\Players\PlayerThree.png" />
+    <Content Include="Sprites\EntityIcons\Players\PlayerTwo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,7 +9,6 @@ C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Debug\Taliscape
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Debug\Taliscape.pdb
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Debug\Taliscape.exe
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Debug\Taliscape.pdb
-C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Debug\AsepriteSharp.dll
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Debug\Taliscape.csproj.CopyComplete
