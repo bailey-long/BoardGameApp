@@ -12,6 +12,7 @@ namespace Taliscape.Objects
         public string SpritePath { get; set; }
         public int OffsetX { get; set; }
         public int OffsetY { get; set; }
+        public int Moves { get; set; }
         public bool HasPriority { get; set; }
         public int SpacesToMove { get; set; }
         public int Lives { get; set; }

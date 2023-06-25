@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Taliscape.Objects;
@@ -25,6 +26,7 @@ namespace Taliscape
         //For StartGame
         private Label playerCountDisplay;
         private Label playerTurnDisplay;
+        private Label playerMovesDisplay;
         private object[] playerList;
         private object[] playerSprites;
 
@@ -66,6 +68,7 @@ namespace Taliscape
                             Location = new Point(startX + col * (TileSize + Spacing), startY + row * (TileSize + Spacing)),
                             BackColor = Color.Black
                         };
+                        pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder]);
 
                         //Village tile (Player Origin)
                         if (row == 0 && col == 0) 
@@ -116,7 +119,7 @@ namespace Taliscape
                 }
             }
         }
-        
+
         private void GameSetup()
         {
             onePlayer = new Button
@@ -174,8 +177,9 @@ namespace Taliscape
             playerCountDisplay = new Label
             {
                 Text = $"Players: {playerCount.ToString()}",
-                Location = new System.Drawing.Point(50, 80),
+                Location = new System.Drawing.Point(20, 70),
                 Size = new System.Drawing.Size(200, 20),
+                Font = new Font("Arial", 12),
             };
             Controls.Add(playerCountDisplay);
 
@@ -194,6 +198,7 @@ namespace Taliscape
                         Lives = 5,
                         Attack = 1,
                         Magic = 1,
+                        Moves = 1,
                         HasPriority = true,
                     };
 
@@ -222,6 +227,7 @@ namespace Taliscape
                         Lives = 5,
                         Attack = 1,
                         Magic = 1,
+                        Moves = 1,
                         OffsetY = 45,
                         HasPriority = false,
                     };
@@ -250,6 +256,7 @@ namespace Taliscape
                         Lives = 5,
                         Attack = 1,
                         Magic = 1,
+                        Moves = 1,
                         OffsetY = 45,
                         HasPriority = false,
                     };
@@ -278,6 +285,7 @@ namespace Taliscape
                         Lives = 5,
                         Attack = 1,
                         Magic = 1,
+                        Moves = 1,
                         OffsetY = 45,
                         HasPriority = false,
                     };
@@ -314,15 +322,16 @@ namespace Taliscape
                     playerTurnDisplay = new Label
                     {
                         Text = $"It is Player {i + 1}'s turn",
-                        Location = new System.Drawing.Point(50, 120),
-                        Size = new System.Drawing.Size(200, 20),
+                        Location = new System.Drawing.Point(20, 120),
+                        Size = new System.Drawing.Size(250, 20),
+                        Font = new Font("Arial", 12),
                     };
                     Controls.Add(playerTurnDisplay);
 
                     // Give The Active Player Control
                     passTurn = new Button
                     {
-                        Location = new System.Drawing.Point(50, 150),
+                        Location = new System.Drawing.Point(20, 180),
                         Size = new System.Drawing.Size(100, 40),
                         Text = $"Player {i + 1} Pass Turn",
                     };
@@ -332,8 +341,8 @@ namespace Taliscape
                 else
                 {
                     playerSprite.BackColor = Color.Black;
-                }
-            }
+                };
+            };
         }
 
         //Thanks Dom
@@ -351,11 +360,31 @@ namespace Taliscape
 
             // Change Turns
             lastPlayer.HasPriority = false;
+            lastPlayer.Moves = 1;
             nextPlayer.HasPriority = true;
 
-            // Resume Game
-            turnOrder++;
+            // Resume Game And Pass Turn Order
+            int nextTurnOrder = (turnOrder + 1) % playerCount;
+            turnOrder = nextTurnOrder;
             GameTick(playerCount, playerList, playerSprites);
+        }
+
+        private void ClickOnTile(object sender, EventArgs e, Player player)
+        {
+            if (player.HasPriority && player.Moves >= 1)
+            {
+                PictureBox clickedTile = (PictureBox)sender;
+                MovePlayer(player, clickedTile.Location);
+                player.Moves -= 1;
+            }
+        }
+
+        private void MovePlayer(Player player, Point newLocation)
+        {
+
+            // Move the player's PictureBox to the new location
+            PictureBox playerSprite = (PictureBox)playerSprites[player.PlayerNumber];
+            playerSprite.Location = newLocation;
         }
 
     }
