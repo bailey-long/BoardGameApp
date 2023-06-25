@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Taliscape.Objects;
 
@@ -180,6 +181,7 @@ namespace Taliscape
 
             // Setup Players
             playerList = new object[playerCount];
+            playerSprites = new object[playerCount];
 
             for (int i = 0; i < playerCount; i++)
             { 
@@ -236,6 +238,7 @@ namespace Taliscape
                     };
                     Controls.Add(playerSprite);
                     playerSprite.BringToFront();
+                    playerSprites[i] = playerSprite;
                 }
 
                 // Player Three
@@ -263,6 +266,7 @@ namespace Taliscape
                     };
                     Controls.Add(playerSprite);
                     playerSprite.BringToFront();
+                    playerSprites[i] = playerSprite;
                 }
 
                 // Player Three
@@ -289,20 +293,23 @@ namespace Taliscape
                     };
                     Controls.Add(playerSprite);
                     playerSprite.BringToFront();
+                    playerSprites[i] = playerSprite;
                 }
             }
-            GameTick(playerCount, playerList);
+            GameTick(playerCount, playerList, playerSprites);
         }
 
-        private void GameTick(int playerCount, object[] playerList)
+        private void GameTick(int playerCount, object[] playerList, [Optional] object[] playerSprites)
         {
 
             for (int i = 0; i < playerCount; i++)
             {
                 Player player = (Player)playerList[i];
+                PictureBox playerSprite = (PictureBox)playerSprites[i];
 
-                if(player.HasPriority)
+                if (player.HasPriority)
                 {
+                    playerSprite.BackColor = Color.Gold;
                     // Display The Current Players Turn
                     playerTurnDisplay = new Label
                     {
@@ -321,6 +328,10 @@ namespace Taliscape
                     };
                     Controls.Add(passTurn);
                     passTurn.Click += (sender, e) => NextTurn(sender, e, turnOrder, playerCount, playerList);
+                }
+                else
+                {
+                    playerSprite.BackColor = Color.Black;
                 }
             }
         }
@@ -344,7 +355,7 @@ namespace Taliscape
 
             // Resume Game
             turnOrder++;
-            GameTick(playerCount, playerList);
+            GameTick(playerCount, playerList, playerSprites);
         }
 
     }
