@@ -15,6 +15,7 @@ namespace Taliscape
         private const int GridHeight = 8;
         private const int TileSize = 64;
         private const int Spacing = 1;
+        // Stores The Tiles In A Dictionary For Future Use
         private Dictionary<string, PictureBox> tiles = new Dictionary<string, PictureBox>();
 
         //For GameSetup
@@ -309,7 +310,7 @@ namespace Taliscape
 
         private void GameTick(int playerCount, object[] playerList, [Optional] object[] playerSprites)
         {
-
+            //Check Who Has Turn Priority
             for (int i = 0; i < playerCount; i++)
             {
                 Player player = (Player)playerList[i];
@@ -318,6 +319,7 @@ namespace Taliscape
                 if (player.HasPriority)
                 {
                     playerSprite.BackColor = Color.Gold;
+
                     // Display The Current Players Turn
                     playerTurnDisplay = new Label
                     {
@@ -348,6 +350,7 @@ namespace Taliscape
         //Thanks Dom
         private void NextTurn(object sender, EventArgs e, int playerWithPriority, int playerCount, object[] playerList)
         {
+            //Remove Old Text And Buttons
             Controls.Remove(playerTurnDisplay);
             Controls.Remove(passTurn);
 
