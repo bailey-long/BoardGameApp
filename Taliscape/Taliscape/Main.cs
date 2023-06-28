@@ -372,8 +372,10 @@ namespace Taliscape
             GameTick(playerCount, playerList, playerSprites);
         }
 
+        //Tile Click Registration
         private void ClickOnTile(object sender, EventArgs e, Player player)
         {
+            //Can Player Move
             if (player.HasPriority && player.Moves >= 1)
             {
                 PictureBox clickedTile = (PictureBox)sender;
