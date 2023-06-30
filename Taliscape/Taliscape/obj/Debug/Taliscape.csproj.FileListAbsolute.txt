@@ -12,3 +12,5 @@ C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Debug\Taliscape
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Debug\Taliscape.csproj.CopyComplete
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Debug\Taliscape.Properties.BoardTiles.resources
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Debug\Taliscape.Properties.EntityIcons.resources

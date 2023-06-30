@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
+using Taliscape.Properties;
 
 namespace Taliscape.Objects
 {
@@ -40,7 +43,7 @@ namespace Taliscape.Objects
             switch (PlayerNumber)
             {
                 case 0:
-                    SpritePath = "C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\EntityIcons\\Players\\PlayerOne.png";
+                    SpritePath = "";
                     break;
 
                 case 1:

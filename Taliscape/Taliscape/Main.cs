@@ -4,7 +4,10 @@ using System.Drawing;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.IO;
+using System.Reflection;
 using Taliscape.Objects;
+using Taliscape.Properties;
 
 namespace Taliscape
 {
@@ -48,16 +51,20 @@ namespace Taliscape
 
         private void GenerateGrid()
         {
+            //Grid Parameters
             int gridWidth = GridWidth * (TileSize + Spacing) - Spacing;
             int gridHeight = GridHeight * (TileSize + Spacing) - Spacing;
 
+            //Center Of Screen Calculation
             int startX = (ClientSize.Width - gridWidth) / 2;
             int startY = (ClientSize.Height - gridHeight) / 2;
 
+            //Generate Grid
             for (int row = 0; row < GridHeight; row++)
             {
                 for (int col = 0; col < GridWidth; col++)
                 {
+                    //Check For Edge/Corner Peice
                     if (row == 0 || row == GridHeight - 1 || col == 0 || col == GridWidth - 1)
                     {
                         BoardTile.TilePosition boardPos = new BoardTile.TilePosition(col, row);
@@ -78,7 +85,7 @@ namespace Taliscape
                             // Store the reference to the picture box in the dictionary
                             tiles.Add(tileName, pictureBox);
                             thisTile.TileType = "Village";
-                            pictureBox.Image = Image.FromFile("C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\BoardTiles\\test.png");
+                            pictureBox.Image = BoardTiles.Village1;
                             //Add ClickOnTile Function to the Tile
                             pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder], tileName);
 
@@ -90,7 +97,7 @@ namespace Taliscape
                             // Store the reference to the picture box in the dictionary
                             tiles.Add(tileName, pictureBox);
                             thisTile.TileType = "Bandit";
-                            pictureBox.Image = Image.FromFile("C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\BoardTiles\\BanditCamp.png");
+                            pictureBox.Image = BoardTiles.BanditCamp;
                             //Add ClickOnTile Function to the Tile
                             pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder], tileName);
                         }
@@ -101,15 +108,15 @@ namespace Taliscape
                             // Store the reference to the picture box in the dictionary
                             tiles.Add(tileName, pictureBox);
                             thisTile.TileType = "Wilderness";
-                            pictureBox.Image = Image.FromFile("C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\BoardTiles\\EdgePiece_01.png");
+                            pictureBox.Image = BoardTiles.EdgePiece_01;
                             //Add ClickOnTile Function to the Tile
                             pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder], tileName);
                         }
 
                         Label label = new Label
                         {
-                            //Text = thisTile.TileType,
-                            Text = $"({col}, {row})", //For Testing
+                            Text = thisTile.TileType,
+                            //Text = $"({col}, {row})", //For Testing
                             AutoSize = true,
                             BackColor = Color.Transparent,
                             ForeColor = Color.White,
@@ -209,15 +216,13 @@ namespace Taliscape
                         OffsetX = 5,
                         HasPriority = true,
                     };
-
-                    player.GetVisuals();
                     playerList[i] = player;
 
 
                     PictureBox playerSprite = new PictureBox
                     {
                         BackColor = Color.Transparent,
-                        Image = Image.FromFile(player.SpritePath),
+                        Image = EntityIcons.PlayerOne,
                         Size = new Size(16, 16),
                         Location = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY),
                     };
@@ -240,14 +245,12 @@ namespace Taliscape
                         OffsetX = 5,
                         HasPriority = false,
                     };
-
-                    player.GetVisuals();
                     playerList[i] = player;
 
                     PictureBox playerSprite = new PictureBox
                     {
                         BackColor = Color.Transparent,
-                        Image = Image.FromFile(player.SpritePath),
+                        Image = EntityIcons.PlayerTwo,
                         Size = new Size(16, 16),
                         Location = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY),
                     };
@@ -270,14 +273,12 @@ namespace Taliscape
                         OffsetX = 43,
                         HasPriority = false,
                     };
-
-                    player.GetVisuals();
                     playerList[i] = player;
 
                     PictureBox playerSprite = new PictureBox
                     {
                         BackColor = Color.Transparent,
-                        Image = Image.FromFile(player.SpritePath),
+                        Image = EntityIcons.PlayerThree,
                         Size = new Size(16, 16),
                         Location = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY),
                     };
@@ -300,13 +301,12 @@ namespace Taliscape
                         OffsetX = 43,
                         HasPriority = false,
                     };
-                    player.GetVisuals();
                     playerList[i] = player;
 
                     PictureBox playerSprite = new PictureBox
                     {
                         BackColor = Color.Transparent,
-                        Image = Image.FromFile(player.SpritePath),
+                        Image = EntityIcons.PlayerFour,
                         Size = new Size(16, 16),
                         Location = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY),
                     };
@@ -386,13 +386,13 @@ namespace Taliscape
         private void ClickOnTile(object sender, EventArgs e, Player player, String tileName)
         {
 
+            // Get References To Tiles
             PictureBox tile = tiles[tileName]; // Access Clicked Tile
             Point tileLocation = tile.Location; // Retrieve the location of the tile
 
             //Can Player Move
             if (player.HasPriority && player.Moves >= 1)
             {
-                PictureBox clickedTile = (PictureBox)sender;
                 Point newLocation = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY);
                 MovePlayer(player, newLocation);
                 player.Moves -= 1;
@@ -401,7 +401,6 @@ namespace Taliscape
 
         private void MovePlayer(Player player, Point newLocation)
         {
-
             // Move the player's PictureBox to the new location
             PictureBox playerSprite = (PictureBox)playerSprites[player.PlayerNumber];
             playerSprite.Location = newLocation;
