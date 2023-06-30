@@ -8,11 +8,15 @@ using System.IO;
 using System.Reflection;
 using Taliscape.Objects;
 using Taliscape.Properties;
+using System.Security.Cryptography;
 
 namespace Taliscape
 {
     public partial class Taliscape : Form
     {
+        //For Everything
+        Random random = new Random();
+
         //For GenerateGrid
         private const int GridWidth = 12;
         private const int GridHeight = 8;
@@ -37,6 +41,7 @@ namespace Taliscape
         //For GameTick
         public bool GamePlaying = false;
         private Button passTurn;
+        private Button rollDice;
         public int turnOrder = 0;
 
         public Taliscape()
@@ -182,19 +187,9 @@ namespace Taliscape
             Controls.Remove(threePlayer);
             Controls.Remove(fourPlayer);
 
-            // Get References To Tiles
+            // Get References To Starting Tile
             PictureBox tile = tiles["Village"]; // Access Village Tile
             Point tileLocation = tile.Location; // Retrieve the location of the tile
-
-            // Display Player Count
-            playerCountDisplay = new Label
-            {
-                Text = $"Players: {playerCount.ToString()}",
-                Location = new System.Drawing.Point(20, 70),
-                Size = new System.Drawing.Size(200, 20),
-                Font = new Font("Arial", 12),
-            };
-            Controls.Add(playerCountDisplay);
 
             // Setup Players
             playerList = new object[playerCount];
@@ -211,7 +206,7 @@ namespace Taliscape
                         Lives = 5,
                         Attack = 1,
                         Magic = 1,
-                        Moves = 1,
+                        Moves = 0,
                         OffsetY = 20,
                         OffsetX = 5,
                         HasPriority = true,
@@ -240,7 +235,7 @@ namespace Taliscape
                         Lives = 5,
                         Attack = 1,
                         Magic = 1,
-                        Moves = 1,
+                        Moves = 0,
                         OffsetY = 45,
                         OffsetX = 5,
                         HasPriority = false,
@@ -268,7 +263,7 @@ namespace Taliscape
                         Lives = 5,
                         Attack = 1,
                         Magic = 1,
-                        Moves = 1,
+                        Moves = 0,
                         OffsetY = 45,
                         OffsetX = 43,
                         HasPriority = false,
@@ -296,7 +291,7 @@ namespace Taliscape
                         Lives = 5,
                         Attack = 1,
                         Magic = 1,
-                        Moves = 1,
+                        Moves = 0,
                         OffsetY = 20,
                         OffsetX = 43,
                         HasPriority = false,
@@ -318,13 +313,23 @@ namespace Taliscape
             GameTick(playerCount, playerList, playerSprites);
         }
 
-        private void GameTick(int playerCount, object[] playerList, [Optional] object[] playerSprites)
+        private void GameTick([Optional] int playerCount, [Optional] object[] playerList, [Optional] object[] playerSprites)
         {
             //Check Who Has Turn Priority
             for (int i = 0; i < playerCount; i++)
             {
                 Player player = (Player)playerList[i];
                 PictureBox playerSprite = (PictureBox)playerSprites[i];
+
+                // Display Player Count
+                playerCountDisplay = new Label
+                {
+                    Text = $"Players: {playerCount.ToString()}",
+                    Location = new System.Drawing.Point(20, 70),
+                    Size = new System.Drawing.Size(200, 20),
+                    Font = new Font("Arial", 12),
+                };
+                Controls.Add(playerCountDisplay);
 
                 if (player.HasPriority)
                 {
@@ -341,11 +346,22 @@ namespace Taliscape
                     Controls.Add(playerTurnDisplay);
 
                     // Give The Active Player Control
+                    rollDice = new Button
+                    {
+                        Location = new System.Drawing.Point(20, 250),
+                        Size = new System.Drawing.Size(200, 80),
+                        Text = "Roll Dice",
+                        BackColor = Color.Gold,
+                    };
+                    Controls.Add(rollDice);
+                    rollDice.Click += (sender, e) => GetPlayerMoves(sender, e, turnOrder, playerList);
+
                     passTurn = new Button
                     {
                         Location = new System.Drawing.Point(20, 180),
                         Size = new System.Drawing.Size(100, 40),
                         Text = $"Player {i + 1} Pass Turn",
+                        BackColor = Color.DeepSkyBlue,
                     };
                     Controls.Add(passTurn);
                     passTurn.Click += (sender, e) => NextTurn(sender, e, turnOrder, playerCount, playerList);
@@ -362,6 +378,7 @@ namespace Taliscape
         {
             //Remove Old Text And Buttons
             Controls.Remove(playerTurnDisplay);
+            Controls.Remove(playerMovesDisplay);
             Controls.Remove(passTurn);
 
             // Get Player Reference Whose Turn Is Ending
@@ -373,7 +390,7 @@ namespace Taliscape
 
             // Change Turns
             lastPlayer.HasPriority = false;
-            lastPlayer.Moves = 1;
+            lastPlayer.Moves = 0;
             nextPlayer.HasPriority = true;
 
             // Resume Game And Pass Turn Order
@@ -394,16 +411,51 @@ namespace Taliscape
             if (player.HasPriority && player.Moves >= 1)
             {
                 Point newLocation = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY);
-                MovePlayer(player, newLocation);
+                Controls.Remove(playerMovesDisplay);
                 player.Moves -= 1;
+                MovePlayer(player, newLocation);
             }
         }
 
+        //Move The Player
         private void MovePlayer(Player player, Point newLocation)
         {
             // Move the player's PictureBox to the new location
             PictureBox playerSprite = (PictureBox)playerSprites[player.PlayerNumber];
             playerSprite.Location = newLocation;
+
+            // Display Current Moves Available
+            playerMovesDisplay = new Label
+            {
+                Text = $"Moves: {player.Moves}",
+                Location = new System.Drawing.Point(20, 350),
+                Size = new System.Drawing.Size(250, 20),
+                Font = new Font("Arial", 12),
+            };
+            Controls.Add(playerMovesDisplay);
+        }
+
+        //Roll Player Moves For Turn
+        private void GetPlayerMoves(object sender, EventArgs e, int playerWithPriority, object[] playerList)
+        {
+
+            //Remove Old Text
+            Controls.Remove(rollDice);
+            Controls.Remove(playerMovesDisplay);
+
+            Player player = (Player)playerList[playerWithPriority];
+            player.Moves = random.Next(1, 6);
+
+            // Display Current Moves Available
+            playerMovesDisplay = new Label
+            {
+                Text = $"Moves: {player.Moves}",
+                Location = new System.Drawing.Point(20, 350),
+                Size = new System.Drawing.Size(250, 20),
+                Font = new Font("Arial", 12),
+            };
+            Controls.Add(playerMovesDisplay);
+
         }
 
     }
