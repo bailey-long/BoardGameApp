@@ -69,7 +69,6 @@ namespace Taliscape
                             Location = new Point(startX + col * (TileSize + Spacing), startY + row * (TileSize + Spacing)),
                             BackColor = Color.Black
                         };
-                        pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder]);
 
                         //Village tile (Player Origin)
                         if (row == 0 && col == 0) 
@@ -80,6 +79,8 @@ namespace Taliscape
                             tiles.Add(tileName, pictureBox);
                             thisTile.TileType = "Village";
                             pictureBox.Image = Image.FromFile("C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\BoardTiles\\test.png");
+                            //Add ClickOnTile Function to the Tile
+                            pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder], tileName);
 
                         }
                         else if (row == 0 && col == 6)
@@ -90,6 +91,8 @@ namespace Taliscape
                             tiles.Add(tileName, pictureBox);
                             thisTile.TileType = "Bandit";
                             pictureBox.Image = Image.FromFile("C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\BoardTiles\\BanditCamp.png");
+                            //Add ClickOnTile Function to the Tile
+                            pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder], tileName);
                         }
                         else
                         {
@@ -99,6 +102,8 @@ namespace Taliscape
                             tiles.Add(tileName, pictureBox);
                             thisTile.TileType = "Wilderness";
                             pictureBox.Image = Image.FromFile("C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\BoardTiles\\EdgePiece_01.png");
+                            //Add ClickOnTile Function to the Tile
+                            pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder], tileName);
                         }
 
                         Label label = new Label
@@ -200,6 +205,8 @@ namespace Taliscape
                         Attack = 1,
                         Magic = 1,
                         Moves = 1,
+                        OffsetY = 20,
+                        OffsetX = 5,
                         HasPriority = true,
                     };
 
@@ -212,7 +219,7 @@ namespace Taliscape
                         BackColor = Color.Transparent,
                         Image = Image.FromFile(player.SpritePath),
                         Size = new Size(16, 16),
-                        Location = new Point(tileLocation.X + 5, tileLocation.Y + 20),
+                        Location = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY),
                     };
                     Controls.Add(playerSprite);
                     playerSprite.BringToFront();
@@ -230,6 +237,7 @@ namespace Taliscape
                         Magic = 1,
                         Moves = 1,
                         OffsetY = 45,
+                        OffsetX = 5,
                         HasPriority = false,
                     };
 
@@ -241,7 +249,7 @@ namespace Taliscape
                         BackColor = Color.Transparent,
                         Image = Image.FromFile(player.SpritePath),
                         Size = new Size(16, 16),
-                        Location = new Point(tileLocation.X + 5, tileLocation.Y + player.OffsetY),
+                        Location = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY),
                     };
                     Controls.Add(playerSprite);
                     playerSprite.BringToFront();
@@ -259,6 +267,7 @@ namespace Taliscape
                         Magic = 1,
                         Moves = 1,
                         OffsetY = 45,
+                        OffsetX = 43,
                         HasPriority = false,
                     };
 
@@ -270,14 +279,14 @@ namespace Taliscape
                         BackColor = Color.Transparent,
                         Image = Image.FromFile(player.SpritePath),
                         Size = new Size(16, 16),
-                        Location = new Point(tileLocation.X + 43, tileLocation.Y + player.OffsetY),
+                        Location = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY),
                     };
                     Controls.Add(playerSprite);
                     playerSprite.BringToFront();
                     playerSprites[i] = playerSprite;
                 }
 
-                // Player Three
+                // Player Four
                 else if (i == 3)
                 {
                     Player player = new Player
@@ -287,7 +296,8 @@ namespace Taliscape
                         Attack = 1,
                         Magic = 1,
                         Moves = 1,
-                        OffsetY = 45,
+                        OffsetY = 20,
+                        OffsetX = 43,
                         HasPriority = false,
                     };
                     player.GetVisuals();
@@ -298,7 +308,7 @@ namespace Taliscape
                         BackColor = Color.Transparent,
                         Image = Image.FromFile(player.SpritePath),
                         Size = new Size(16, 16),
-                        Location = new Point(tileLocation.X + 43, tileLocation.Y + 20),
+                        Location = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY),
                     };
                     Controls.Add(playerSprite);
                     playerSprite.BringToFront();
@@ -373,13 +383,18 @@ namespace Taliscape
         }
 
         //Tile Click Registration
-        private void ClickOnTile(object sender, EventArgs e, Player player)
+        private void ClickOnTile(object sender, EventArgs e, Player player, String tileName)
         {
+
+            PictureBox tile = tiles[tileName]; // Access Clicked Tile
+            Point tileLocation = tile.Location; // Retrieve the location of the tile
+
             //Can Player Move
             if (player.HasPriority && player.Moves >= 1)
             {
                 PictureBox clickedTile = (PictureBox)sender;
-                MovePlayer(player, clickedTile.Location);
+                Point newLocation = new Point(tileLocation.X + player.OffsetX, tileLocation.Y + player.OffsetY);
+                MovePlayer(player, newLocation);
                 player.Moves -= 1;
             }
         }
