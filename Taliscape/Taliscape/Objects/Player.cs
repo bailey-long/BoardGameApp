@@ -37,28 +37,5 @@ namespace Taliscape.Objects
                 null
             };
         }
-
-        public void GetVisuals()
-        {
-            switch (PlayerNumber)
-            {
-                case 0:
-                    SpritePath = "";
-                    break;
-
-                case 1:
-                    SpritePath = "C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\EntityIcons\\Players\\PlayerTwo.png";
-                    break;
-
-                case 2:
-                    SpritePath = "C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\EntityIcons\\Players\\PlayerThree.png";
-                    break;
-
-                case 3:
-                    SpritePath = "C:\\Users\\Loopypew\\workspace\\BoardGameApp\\Taliscape\\Taliscape\\Sprites\\EntityIcons\\Players\\PlayerFour.png";
-                    break;
-            }
-        }
-
     }
 }

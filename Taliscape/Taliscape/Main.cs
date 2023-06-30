@@ -85,7 +85,7 @@ namespace Taliscape
                             // Store the reference to the picture box in the dictionary
                             tiles.Add(tileName, pictureBox);
                             thisTile.TileType = "Village";
-                            pictureBox.Image = BoardTiles.Village1;
+                            pictureBox.Image = BoardTiles.test;
                             //Add ClickOnTile Function to the Tile
                             pictureBox.Click += (sender, e) => ClickOnTile(sender, e, (Player)playerList[turnOrder], tileName);
 
