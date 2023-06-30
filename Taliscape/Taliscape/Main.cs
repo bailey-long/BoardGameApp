@@ -361,7 +361,7 @@ namespace Taliscape
                     {
                         Location = new System.Drawing.Point(20, 180),
                         Size = new System.Drawing.Size(100, 40),
-                        Text = $"Player {i + 1} Pass Turn",
+                        Text = "Pass Turn",
                         BackColor = Color.DeepSkyBlue,
                     };
                     Controls.Add(passTurn);
@@ -430,7 +430,7 @@ namespace Taliscape
             playerMovesDisplay = new Label
             {
                 Text = $"Moves: {player.Moves}",
-                Location = new System.Drawing.Point(20, 350),
+                Location = new System.Drawing.Point(20, 230),
                 Size = new System.Drawing.Size(250, 20),
                 Font = new Font("Arial", 12),
             };
@@ -452,7 +452,7 @@ namespace Taliscape
             playerMovesDisplay = new Label
             {
                 Text = $"Moves: {player.Moves}",
-                Location = new System.Drawing.Point(20, 350),
+                Location = new System.Drawing.Point(20, 230),
                 Size = new System.Drawing.Size(250, 20),
                 Font = new Font("Arial", 12),
             };
