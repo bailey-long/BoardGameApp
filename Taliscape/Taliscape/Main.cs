@@ -313,6 +313,7 @@ namespace Taliscape
             GameTick(playerCount, playerList, playerSprites);
         }
 
+        //Call To Do Stuff With Current Player
         private void GameTick([Optional] int playerCount, [Optional] object[] playerList, [Optional] object[] playerSprites)
         {
             //Check Who Has Turn Priority
