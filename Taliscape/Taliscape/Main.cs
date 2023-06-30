@@ -379,6 +379,7 @@ namespace Taliscape
             //Remove Old Text And Buttons
             Controls.Remove(playerTurnDisplay);
             Controls.Remove(playerMovesDisplay);
+            Controls.Remove(rollDice);
             Controls.Remove(passTurn);
 
             // Get Player Reference Whose Turn Is Ending
