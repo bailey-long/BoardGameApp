@@ -9,19 +9,21 @@ using System.Reflection;
 using Taliscape.Objects;
 using Taliscape.Properties;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace Taliscape
 {
     public partial class Taliscape : Form
     {
         //For Everything
-        Random random = new Random();
+        private readonly Random random = new Random();
 
         //For GenerateGrid
         private const int GridWidth = 12;
         private const int GridHeight = 8;
         private const int TileSize = 64;
-        private const int Spacing = 1;
+        private const int Spacing = 1; //Space Between Tiles
+
         // Stores The Tiles In A Dictionary For Future Use
         private Dictionary<string, PictureBox> tiles = new Dictionary<string, PictureBox>();
 
@@ -39,10 +41,10 @@ namespace Taliscape
         private object[] playerSprites;
 
         //For GameTick
-        public bool GamePlaying = false;
+        private bool GamePlaying = false;
         private Button passTurn;
         private Button rollDice;
-        public int turnOrder = 0;
+        private int turnOrder = 0;
 
         public Taliscape()
         {
@@ -441,7 +443,7 @@ namespace Taliscape
         private void GetPlayerMoves(object sender, EventArgs e, int playerWithPriority, object[] playerList)
         {
 
-            //Remove Old Text
+            // Remove Old Text
             Controls.Remove(rollDice);
             Controls.Remove(playerMovesDisplay);
 
@@ -459,6 +461,5 @@ namespace Taliscape
             Controls.Add(playerMovesDisplay);
 
         }
-
     }
 }

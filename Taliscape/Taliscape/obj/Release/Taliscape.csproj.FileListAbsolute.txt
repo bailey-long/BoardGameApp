@@ -1,0 +1,16 @@
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Release\Taliscape.exe.config
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Release\Taliscape.exe
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Release\Taliscape.pdb
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Release\Newtonsoft.Json.dll
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\bin\Release\Newtonsoft.Json.xml
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.csproj.AssemblyReference.cache
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.csproj.SuggestedBindingRedirects.cache
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.Taliscape.resources
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.Properties.BoardTiles.resources
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.Properties.EntityIcons.resources
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.Properties.Resources.resources
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.csproj.GenerateResource.cache
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.csproj.CoreCompileInputs.cache
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.csproj.CopyComplete
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.exe
+C:\Users\Loopypew\workspace\BoardGameApp\Taliscape\Taliscape\obj\Release\Taliscape.pdb
