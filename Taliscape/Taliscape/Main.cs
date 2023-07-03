@@ -25,7 +25,7 @@ namespace Taliscape
         private const int Spacing = 1; //Space Between Tiles
 
         // Stores The Tiles In A Dictionary For Future Use
-        private Dictionary<string, PictureBox> tiles = new Dictionary<string, PictureBox>();
+        private readonly Dictionary<string, PictureBox> tiles = new Dictionary<string, PictureBox>();
 
         //For GameSetup
         private Button onePlayer;
@@ -41,7 +41,6 @@ namespace Taliscape
         private object[] playerSprites;
 
         //For GameTick
-        private bool GamePlaying = false;
         private Button passTurn;
         private Button rollDice;
         private int turnOrder = 0;
@@ -49,7 +48,6 @@ namespace Taliscape
         public Taliscape()
         {
             InitializeComponent();
-
             // Generate Game Map
             GenerateGrid();
             // Run Player Setup
@@ -140,6 +138,7 @@ namespace Taliscape
             }
         }
 
+        //Player Game Options Menu
         private void GameSetup()
         {
             onePlayer = new Button
@@ -359,6 +358,7 @@ namespace Taliscape
                     Controls.Add(rollDice);
                     rollDice.Click += (sender, e) => GetPlayerMoves(sender, e, turnOrder, playerList);
 
+                    //Give Player Controll
                     passTurn = new Button
                     {
                         Location = new System.Drawing.Point(20, 180),
